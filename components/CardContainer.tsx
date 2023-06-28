@@ -5,16 +5,29 @@ import { CardContent } from './CardContent'
 import { Heading } from './Heading'
 import { Input } from './Input'
 import { TextArea } from './TextArea'
+import Stepper from './Stepper'
+import { IconType } from 'react-icons'
+import { LuChevronRight } from 'react-icons/lu'
 
 enum STEPS {
-  CONTACT = 0,
-  ENTERPRISE = 1,
-  PROJECT = 2,
+  CONTACT = 1,
+  ENTERPRISE = 2,
+  PROJECT = 3,
 }
+
+interface Step {
+  title: string
+  icon: IconType | null
+}
+const steps: Step[] = [
+  { title: 'Contato', icon: LuChevronRight },
+  { title: 'Empresa', icon: LuChevronRight },
+  { title: 'Projeto', icon: null },
+]
 
 export function CardContainer() {
   const [step, setStep] = useState(STEPS.CONTACT)
-  const [isCurrentForm, setIsCurrentForm] = useState(true)
+  const [complete, setComplete] = useState(false)
 
   function onBack() {
     setStep((value) => value - 1)
@@ -71,7 +84,8 @@ export function CardContainer() {
   }
   return (
     <div className=" flex w-[37rem] flex-col gap-8 rounded-md border border-[#e1e1e6] p-8">
-      <Heading />
+      {/* <Heading /> */}
+      <Stepper complete={complete} currentStep={step} items={steps} />
 
       <div className="w-full border bg-[#e1e1e6]" />
 

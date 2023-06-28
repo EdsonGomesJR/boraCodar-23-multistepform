@@ -1,53 +1,56 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
+
 import './stepper.css'
 import { TiTick } from 'react-icons/ti'
-const Stepper = () => {
-  const steps = ['Customer Info', 'Shipping Info', 'Payment', 'Step 4']
-  const [currentStep, setCurrentStep] = useState(1)
-  const [complete, setComplete] = useState(false)
+import { IconType } from 'react-icons'
+
+interface Item {
+  title: string
+  icon: IconType | null
+}
+interface ItemProps {
+  items: Array<Item>
+  complete: boolean
+  currentStep: number
+}
+
+const Stepper = ({ items, currentStep, complete }: ItemProps) => {
   return (
     <>
       <div className="flex justify-between">
-        {steps?.map((step, i) => (
-          <div
-            key={i}
-            className={`step-item ${currentStep === i + 1 && 'active'} ${
-              (i + 1 < currentStep || complete) && 'complete'
-            } `}
-          >
-            <div className="step">
-              {i + 1 < currentStep || complete ? <TiTick size={24} /> : i + 1}
-            </div>
-            <p className="text-white">{step}</p>
-          </div>
-        ))}
-      </div>{' '}
-      <div className="flex gap-4 ">
-        {!complete && (
-          <button
-            className="btn"
-            onClick={() => {
-              currentStep === steps.length
-                ? setComplete(true)
-                : setCurrentStep((prev) => prev + 1)
-            }}
-          >
-            {currentStep === steps.length ? 'Finish' : 'Next'}
-          </button>
-        )}
-        {!complete && (
-          <button
-            className="btn border border-white p-2 text-white"
-            onClick={() => {
-              currentStep !== steps.length
-                ? setCurrentStep((prev) => prev - 1)
-                : setCurrentStep(0)
-            }}
-          >
-            {currentStep === steps.length ? 'Reset' : 'Back'}
-          </button>
-        )}
+        {items.map(({ icon: Icon, title }, i) => {
+          return (
+            <>
+              <div
+                key={i}
+                className={`step-item2 relative flex w-36 flex-col items-center justify-center 
+                 [&:not(:first-child):before]:bg-slate-200
+                 [&:not(:first-child)]:before:absolute
+                 [&:not(:first-child)]:before:right-[65%]
+                 [&:not(:first-child)]:before:top-1/3
+                 [&:not(:first-child)]:before:h-[3px]
+                 [&:not(:first-child)]:before:w-full
+                 [&:not(:first-child)]:before:-translate-y-2/4
+                 [&:not(:first-child)]:before:content-['']
+                ${currentStep === i + 1 && 'active'} ${
+                  (i + 1 < currentStep || complete) && 'complete'
+                } `}
+              >
+                <div className="step ">
+                  {i + 1 < currentStep || complete ? (
+                    <TiTick size={24} />
+                  ) : (
+                    i + 1
+                  )}
+                </div>
+                <p className="text-black">{title}</p>
+              </div>
+
+              <div>{Icon && <Icon />}</div>
+            </>
+          )
+        })}
       </div>
     </>
   )
