@@ -8,6 +8,7 @@ import { TextArea } from './TextArea'
 import Stepper from './Stepper'
 import { IconType } from 'react-icons'
 import { LuChevronRight } from 'react-icons/lu'
+import { useRouter } from 'next/navigation'
 
 enum STEPS {
   CONTACT = 1,
@@ -28,7 +29,7 @@ const steps: Step[] = [
 export function CardContainer() {
   const [step, setStep] = useState(STEPS.CONTACT)
   const [complete, setComplete] = useState(false)
-
+  const router = useRouter()
   function onBack() {
     setStep((value) => value - 1)
   }
@@ -36,11 +37,14 @@ export function CardContainer() {
     setStep((value) => value + 1)
   }
 
-  function onSubmit() {
+  function onSubmit(e: Event) {
     if (step !== STEPS.PROJECT) {
       return onNext()
     }
-    alert('Fim')
+
+    setInterval(() => {
+      setComplete(true)
+    }, 2000)
   }
   const actionLabel = useMemo(() => {
     if (step === STEPS.PROJECT) {

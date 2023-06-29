@@ -33,9 +33,10 @@ const Stepper = ({ items, currentStep, complete }: ItemProps) => {
                  [&:not(:first-child)]:before:w-full
                  [&:not(:first-child)]:before:-translate-y-2/4
                  [&:not(:first-child)]:before:content-['']
-                ${currentStep === i + 1 && 'active'} ${
-                  (i + 1 < currentStep || complete) && 'complete'
-                } `}
+                ${
+                  currentStep === i + 1 &&
+                  'active [&:not(:first-child)]:before:bg-green-600'
+                } ${(i + 1 < currentStep || complete) && 'complete'} `}
               >
                 <div className="step ">
                   {i + 1 < currentStep || complete ? (
