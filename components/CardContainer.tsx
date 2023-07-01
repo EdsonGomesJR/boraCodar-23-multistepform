@@ -1,14 +1,13 @@
+/* eslint-disable no-unused-vars */
 'use client'
 
 import { useMemo, useState } from 'react'
 import { CardContent } from './CardContent'
-import { Heading } from './Heading'
 import { Input } from './Input'
 import { TextArea } from './TextArea'
 import Stepper from './Stepper'
 import { IconType } from 'react-icons'
 import { LuChevronRight } from 'react-icons/lu'
-import { useRouter } from 'next/navigation'
 
 enum STEPS {
   CONTACT = 1,
@@ -29,7 +28,6 @@ const steps: Step[] = [
 export function CardContainer() {
   const [step, setStep] = useState(STEPS.CONTACT)
   const [complete, setComplete] = useState(false)
-  const router = useRouter()
   function onBack() {
     setStep((value) => value - 1)
   }
@@ -37,7 +35,7 @@ export function CardContainer() {
     setStep((value) => value + 1)
   }
 
-  function onSubmit(e: Event) {
+  function onSubmit() {
     if (step !== STEPS.PROJECT) {
       return onNext()
     }

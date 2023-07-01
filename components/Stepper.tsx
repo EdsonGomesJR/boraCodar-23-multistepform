@@ -34,11 +34,21 @@ const Stepper = ({ items, currentStep, complete }: ItemProps) => {
                  [&:not(:first-child)]:before:-translate-y-2/4
                  [&:not(:first-child)]:before:content-['']
                 ${
+                  // estilo do caminho
                   currentStep === i + 1 &&
-                  'active [&:not(:first-child)]:before:bg-green-600'
-                } ${(i + 1 < currentStep || complete) && 'complete'} `}
+                  'active2 [&:not(:first-child)]:before:bg-green-600'
+                } 
+                ${
+                  (i + 1 < currentStep || complete) &&
+                  ' [&:not(:first-child)]:before:bg-green-600'
+                } `}
               >
-                <div className="step ">
+                <div
+                  className={`step2   relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-slate-700 font-semibold text-white
+                  ${currentStep === i + 1 && '  bg-sky-600  '}
+                  ${(i + 1 < currentStep || complete) && 'bg-green-600'}
+                  `}
+                >
                   {i + 1 < currentStep || complete ? (
                     <TiTick size={24} />
                   ) : (
